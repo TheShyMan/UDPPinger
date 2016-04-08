@@ -1,8 +1,6 @@
 /**
  * UDPPinger.java -- Basic routines for UDP pinger
  *
- * $Id: UDPPinger.java,v 1.1.1.1 2003/09/30 14:36:11 kangasha Exp $
- *
  */
 
 import java.io.IOException;
