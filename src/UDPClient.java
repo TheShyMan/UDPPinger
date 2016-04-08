@@ -1,8 +1,6 @@
 /**
  * UDPClient.java -- Simple UDP client
  *
- * $Id: UDPClient.java,v 1.2 2003/10/14 14:25:30 kangasha Exp $
- *
  */
 
 import java.net.InetAddress;
@@ -49,14 +47,14 @@ public class UDPClient extends UDPPinger implements Runnable {
 	 * Main Function.
 	 */
 	public static void main(String args[]) {
-		//TODO: ĞŞ¸ÄÎªÆÚÍûPingµÄ»úÆ÷ÕıÈ·µÄIPµØÖ·ºÍ¶Ë¿Ú,ÏÖÔÚÊÇ±¾»úÉèÖÃ.¸Ä¶Ë¿ÚÊ±Í¬Ê±Òª¸ÄUDPServerµÄÉèÖÃ.
+		//TODO: ä¿®æ”¹ä¸ºæœŸæœ›Pingçš„æœºå™¨æ­£ç¡®çš„IPåœ°å€å’Œç«¯å£,ç°åœ¨æ˜¯æœ¬æœºè®¾ç½®.æ”¹ç«¯å£æ—¶åŒæ—¶è¦æ”¹UDPServerçš„è®¾ç½®.
 		String host = "59.66.133.223";
 		int port = 9876;
 
 		System.out.println("Contacting host " + host + " at port " + port);
 
 		UDPClient client = new UDPClient(host, port);
-		client.run();	//ÔËĞĞ³ÌĞò
+		client.run();	//è¿è¡Œç¨‹åº
 	}
 	
 	/** Main code for pinger client thread. */
@@ -82,9 +80,9 @@ public class UDPClient extends UDPPinger implements Runnable {
 
 			/* Send ping to recipient */
 			try {
-				//TODO: 1.PingMessage¶ÔÏó°üº¬ÁËÊ²Ã´ĞÅÏ¢?
-				//ÕâÀïpingMessageÏÈÍ¨¹ıInetAddress.getByNameº¯Êı»ñÈ¡ÁË±¾»úµÄIPµØÖ·£¬È»ºó°üº¬ÁË±¾µØ¶Ë¿ÚºÅ
-				//×îºóµÄmessageÊÇÒª·¢ËÍµÄpingÃüÁî
+				//TODO: 1.PingMessageå¯¹è±¡åŒ…å«äº†ä»€ä¹ˆä¿¡æ¯?
+				//è¿™é‡ŒpingMessageå…ˆé€šè¿‡InetAddress.getByNameå‡½æ•°è·å–äº†æœ¬æœºçš„IPåœ°å€ï¼Œç„¶ååŒ…å«äº†æœ¬åœ°ç«¯å£å·
+				//æœ€åçš„messageæ˜¯è¦å‘é€çš„pingå‘½ä»¤
 				ping = new PingMessage(InetAddress.getByName(remoteHost),
 						remotePort, message);
 			} catch (UnknownHostException e) {
@@ -94,11 +92,11 @@ public class UDPClient extends UDPPinger implements Runnable {
 
 			/* Read reply */
 			try {
-				//TODO: 2.ÕâÀïÈ¡µÃµÄPingMessage reply¶ÔÏóÓëÉÏÃæ·¢ËÍµÄping¶ÔÏóÄÚÈİÊÇ·ñÒ»Ñù?
-				//ÕâÀïÈ¡µÃµÄreply¶ÔÏóÊÇ·şÎñÆ÷¶ËÊÕµ½pingÃüÁîºó£¬µÃµ½µÄ·¢ËÍÊ±¼ä²¢ÇÒ½«Õâ¸öÊ±¼äÔ­·â²»¶¯·µ»Ø
+				//TODO: 2.è¿™é‡Œå–å¾—çš„PingMessage replyå¯¹è±¡ä¸ä¸Šé¢å‘é€çš„pingå¯¹è±¡å†…å®¹æ˜¯å¦ä¸€æ ·?
+				//è¿™é‡Œå–å¾—çš„replyå¯¹è±¡æ˜¯æœåŠ¡å™¨ç«¯æ”¶åˆ°pingå‘½ä»¤åï¼Œå¾—åˆ°çš„å‘é€æ—¶é—´å¹¶ä¸”å°†è¿™ä¸ªæ—¶é—´åŸå°ä¸åŠ¨è¿”å›
 				PingMessage reply = receivePing();
-				//TODO:	3.handleReplyµÄ×÷ÓÃ?ÊÇÒÔÖÂËüËù¸Ä±äµÄ±äÁ¿ÖµÊÇÊ²Ã´?
-				//º¯ÊıµÄ×÷ÓÃÊÇ´Ó·µ»ØµÄreplyĞÅÏ¢ÖĞ»ñÈ¡Ê±¼ä£¬²¢¼ÆËãrttµÄÖµ£¬²¢ÇÒ¼ÓÒÔ¼ÆÊı
+				//TODO:	3.handleReplyçš„ä½œç”¨?æ˜¯ä»¥è‡´å®ƒæ‰€æ”¹å˜çš„å˜é‡å€¼æ˜¯ä»€ä¹ˆ?
+				//å‡½æ•°çš„ä½œç”¨æ˜¯ä»è¿”å›çš„replyä¿¡æ¯ä¸­è·å–æ—¶é—´ï¼Œå¹¶è®¡ç®—rttçš„å€¼ï¼Œå¹¶ä¸”åŠ ä»¥è®¡æ•°
 				handleReply(reply.getContents());	
 			} catch (SocketTimeoutException e) {
 				/*
@@ -118,10 +116,10 @@ public class UDPClient extends UDPPinger implements Runnable {
 		} catch (SocketException e) {
 			System.out.println("Error setting timeout REPLY_TIMEOUT: " + e);
 		}
-		//TODO:	4.Õâ¸öwhileÑ­»·µÄ×÷ÓÃÊÇÊ²Ã´,ÓëµÚ96ĞĞµÄreceivePingµ÷ÓÃÓĞÊ²Ã´¹ØÏµ,¼ÈÈ»ÉÏÃæ¶¼ÒÑµ÷ÓÃÁËreceivePing()
-		//		ÎªºÎÕâÀïÒªÖØĞÂµ÷ÓÃ??
-		//Õâ¸öwhileÑ­»·µÄ×÷ÓÃÊÇÔÚ·¢ËÍÍêÈ«²¿µÄpingÃüÁîÖ®ºó³ÖĞøµÈ´ıÒ»¶ÎÊ±¼ä£¬ÈçÓĞ·µ»ØµÄ°üÔò½ÓÊÜ£¬¶ø¶ÔÓÚÄÇĞ©
-		//Î´½Óµ½»ØÓ¦µÄpingÅĞ¶¨Îª¶ªÊ§
+		//TODO:	4.è¿™ä¸ªwhileå¾ªç¯çš„ä½œç”¨æ˜¯ä»€ä¹ˆ,ä¸ç¬¬96è¡Œçš„receivePingè°ƒç”¨æœ‰ä»€ä¹ˆå…³ç³»,æ—¢ç„¶ä¸Šé¢éƒ½å·²è°ƒç”¨äº†receivePing()
+		//		ä¸ºä½•è¿™é‡Œè¦é‡æ–°è°ƒç”¨??
+		//è¿™ä¸ªwhileå¾ªç¯çš„ä½œç”¨æ˜¯åœ¨å‘é€å®Œå…¨éƒ¨çš„pingå‘½ä»¤ä¹‹åæŒç»­ç­‰å¾…ä¸€æ®µæ—¶é—´ï¼Œå¦‚æœ‰è¿”å›çš„åŒ…åˆ™æ¥å—ï¼Œè€Œå¯¹äºé‚£äº›
+		//æœªæ¥åˆ°å›åº”çš„pingåˆ¤å®šä¸ºä¸¢å¤±
 		while (numReplies < NUM_PINGS) {
 			try {
 				PingMessage reply = receivePing();
@@ -150,10 +148,10 @@ public class UDPClient extends UDPPinger implements Runnable {
 		replies[pingNumber] = true;
 		/* Calculate RTT and store it in the rtt-array. */
 		Date now = new Date();
-		//TODO:	5. Çë¼òÒªËµÃ÷ÕâÀïµÄrttµÄ¼ÆËã¹ı³Ì.
-		//·şÎñÆ÷¶Ë·µ»ØµÄreplyĞÅÏ¢ÖĞº¬Á½·½ÃæĞÅÏ¢£¬Ê×ÏÈÊÇÕâÊÇ¶ÔÓ¦µÚ¼¸¸öpingµÄ·µ»Ø£¬Æä´ÎÊÇÄÇ¸öpingÃüÁîµÄ·¢ËÍÊ±¼ä
-		//ÕâÀïÌáÈ¡³öreplyµ±ÖĞµÄºó°ë½ØĞÅÏ¢£¬Ò²¾ÍÊÇÔ­ÏÈpingÃüÁîµÄ·¢ËÍÊ±¼ä£¬È»ºóÍ¨¹ıgettime»ñÈ¡ÏµÍ³ÏÖÔÚµÄÊ±¼ä£¬
-		//ºÍ·¢ËÍÊ±¼äÏà¼õ£¬×÷ÎªÒ»¸öÍù·µËùĞèÒªµÄÊ±¼ä
+		//TODO:	5. è¯·ç®€è¦è¯´æ˜è¿™é‡Œçš„rttçš„è®¡ç®—è¿‡ç¨‹.
+		//æœåŠ¡å™¨ç«¯è¿”å›çš„replyä¿¡æ¯ä¸­å«ä¸¤æ–¹é¢ä¿¡æ¯ï¼Œé¦–å…ˆæ˜¯è¿™æ˜¯å¯¹åº”ç¬¬å‡ ä¸ªpingçš„è¿”å›ï¼Œå…¶æ¬¡æ˜¯é‚£ä¸ªpingå‘½ä»¤çš„å‘é€æ—¶é—´
+		//è¿™é‡Œæå–å‡ºreplyå½“ä¸­çš„ååŠæˆªä¿¡æ¯ï¼Œä¹Ÿå°±æ˜¯åŸå…ˆpingå‘½ä»¤çš„å‘é€æ—¶é—´ï¼Œç„¶åé€šè¿‡gettimeè·å–ç³»ç»Ÿç°åœ¨çš„æ—¶é—´ï¼Œ
+		//å’Œå‘é€æ—¶é—´ç›¸å‡ï¼Œä½œä¸ºä¸€ä¸ªå¾€è¿”æ‰€éœ€è¦çš„æ—¶é—´
 		rtt[pingNumber] = now.getTime() - then;	
 		numReplies++;
 	}
